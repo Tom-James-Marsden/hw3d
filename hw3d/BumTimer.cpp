@@ -2,12 +2,12 @@
 
 using namespace std::chrono;
 
-BumTimer::BumTimer()
+BumTimer::BumTimer() noexcept
 {
 	last = steady_clock::now();
 }
 
-float BumTimer::Mark()
+float BumTimer::Mark() noexcept
 {
 	const auto old = last;
 	last = steady_clock::now();
@@ -15,7 +15,7 @@ float BumTimer::Mark()
 	return frameTime.count();
 }
 
-float BumTimer::Peek() const
+float BumTimer::Peek() const noexcept
 {
 	return duration<float>(steady_clock::now() - last).count();
 }
