@@ -1,5 +1,6 @@
 ﻿#include "BumWin.h"
 #include "BumException.h"
+#include "App.h"
 #include "Window.h"
 #include <string>
 #include <sstream>
@@ -12,22 +13,7 @@ int CALLBACK WinMain(
 {
 	try
 	{
-		Window wnd(800, 300, "Donkey Fart Box");
-		MSG msg;
-		BOOL gResult;
-		while ((gResult = GetMessage(&msg, nullptr, 0, 0)) > 0)
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-
-		if (gResult == -1)
-		{
-			return -1;
-		}
-		return msg.wParam;
-
-
+		return App{}.Go();
 	}
 	catch (const BumException& e)
 	{
