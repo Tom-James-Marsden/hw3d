@@ -30,7 +30,7 @@ int CALLBACK WinMain(
 				case Mouse::Event::Type::Move:
 				{
 					std::ostringstream oss;
-					oss << "Mouse moved to (" << e.GetPosX() << "," << e.GetPosY() << ")" << wnd.mouse.IsInWindow();
+					oss << "Mouse Cringe moved to (" << e.GetPosX() << "," << e.GetPosY() << ")" << wnd.mouse.IsInWindow() << "IDKKKK";
 					wnd.SetTitle(oss.str());
 				}
 				break;
