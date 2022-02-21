@@ -19,23 +19,6 @@ int CALLBACK WinMain(
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
-			while (!wnd.mouse.IsEmpty())
-			{
-				const auto e = wnd.mouse.Read();
-				switch (e.GetType())
-				{
-				case Mouse::Event::Type::Leave:
-					wnd.SetTitle("Gone!");
-					break;
-				case Mouse::Event::Type::Move:
-				{
-					std::ostringstream oss;
-					oss << "Mouse Cringe moved to (" << e.GetPosX() << "," << e.GetPosY() << ")" << wnd.mouse.IsInWindow() << "IDKKKK";
-					wnd.SetTitle(oss.str());
-				}
-				break;
-				}
-			}
 		}
 
 		if (gResult == -1)
