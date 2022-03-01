@@ -37,7 +37,7 @@ public:
 			x(0),
 			y(0)
 		{}
-		Event(Type type, Mouse& parent) noexcept
+		Event(Type type, const Mouse& parent) noexcept
 			:
 			type(type),
 			leftIsPressed(parent.leftIsPressed),
