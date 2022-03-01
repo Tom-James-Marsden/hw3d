@@ -97,7 +97,7 @@ void Graphics::ClearBuffer(float red, float green, float blue) noexcept
 	pContext->ClearRenderTargetView(pTarget.Get(), color);
 }
 
-void Graphics::DrawTestTriangle()
+void Graphics::DrawTestTriangle(float angle)
 {
 	namespace wrl = Microsoft::WRL;
 
@@ -118,7 +118,7 @@ void Graphics::DrawTestTriangle()
 			unsigned char a;
 		}colour;
 	};
-
+	//Create Vertex Buffer
 	Vertex vertices[] =
 	{
 		{  0.0f, 0.5f, 255, 0  , 0  , 0 },
@@ -141,10 +141,12 @@ void Graphics::DrawTestTriangle()
 	sd.pSysMem = vertices;
 	GFX_THROW_INFO(pDevice->CreateBuffer(&bd, &sd, &pVertexBuffer));
 
+	//Set Vertex Buffer
 	const UINT stride = sizeof(Vertex);
 	const UINT offset = 0u;
 	pContext->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
 
+	//Create Index Buffer
 	const unsigned short indices[] =
 	{
 		0,1,2,
@@ -163,11 +165,45 @@ void Graphics::DrawTestTriangle()
 	ibd.StructureByteStride = sizeof(unsigned short);
 	D3D11_SUBRESOURCE_DATA isd = {};
 	isd.pSysMem = indices;
-
 	GFX_THROW_INFO(pDevice->CreateBuffer(&ibd, &isd, &pIndexBuffer));
-
+	//Bind Index Buffer
 	pContext->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0u);
 
+	//Create constant buffer for transformation matrix
+	struct ConstantBuffer
+	{
+		struct
+		{
+			float element[4][4];
+		} transformation;
+	};
+
+	const ConstantBuffer cb =
+	{
+		{
+			 std::cos(angle), std::sin(angle), 0.0f, 0.0f,
+			-std::sin(angle), std::cos(angle), 0.0f, 0.0f,
+			0.0f,			  0.0f,			   1.0f, 0.0f,
+			0.0f,			  0.0f,			   0.0f, 1.0f,
+		}
+	};
+
+	wrl::ComPtr<ID3D11Buffer> pConstantBuffer;
+	D3D11_BUFFER_DESC cbd;
+	cbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	cbd.Usage = D3D11_USAGE_DYNAMIC;
+	cbd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	cbd.MiscFlags = 0u;
+	cbd.ByteWidth = sizeof(cb);
+	cbd.StructureByteStride = 0u;
+	D3D11_SUBRESOURCE_DATA csd = {};
+	csd.pSysMem = &cb;
+	GFX_THROW_INFO(pDevice->CreateBuffer(&cbd, &csd, &pConstantBuffer));
+
+	//Bind constant buffer to vertex shader
+	pContext->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
+
+	//Load and Bind VS and PS
 	wrl::ComPtr<ID3D11VertexShader> pVertexShader;
 	wrl::ComPtr<ID3DBlob> pBlob;
 
