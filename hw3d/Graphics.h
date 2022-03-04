@@ -2,12 +2,17 @@
 #include "BumWin.h"
 #include "BumException.h"
 #include <d3d11.h>
-#include <vector>
 #include <wrl.h>
-#include"DxgiInfoManager.h"
+#include <vector>
+#include "DxgiInfoManager.h"
+#include <d3dcompiler.h>
+#include <DirectXMath.h>
+#include <memory>
+#include <random>
 
 class Graphics
 {
+	friend class Bindable;
 public:
 	class Exception : public BumException
 	{
@@ -16,7 +21,7 @@ public:
 	class HrException : public Exception
 	{
 	public:
-		HrException(int line, const char* fike, HRESULT hr, std::vector<std::string> infoMsgs = {}) noexcept;
+		HrException(int line, const char* file, HRESULT hr, std::vector<std::string> infoMsgs = {}) noexcept;
 		const char* what() const noexcept override;
 		const char* GetType() const noexcept override;
 		HRESULT GetErrorCode() const noexcept;
@@ -52,16 +57,17 @@ public:
 	~Graphics() = default;
 	void EndFrame();
 	void ClearBuffer(float red, float green, float blue) noexcept;
-	void DrawTestTriangle(float angle, float x, float y);
+	void DrawIndexed(UINT count) noexcept(!IS_DEBUG);
+	void SetProjection(DirectX::FXMMATRIX proj) noexcept;
+	DirectX::XMMATRIX GetProjection() const noexcept;
 private:
+	DirectX::XMMATRIX projection;
 #ifndef NDEBUG
 	DxgiInfoManager infoManager;
 #endif
-
 	Microsoft::WRL::ComPtr<ID3D11Device> pDevice;
 	Microsoft::WRL::ComPtr<IDXGISwapChain> pSwap;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> pContext;
 	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> pTarget;
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> pDSV;
 };
-
