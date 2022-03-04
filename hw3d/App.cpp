@@ -39,7 +39,7 @@ int App::Go()
 		}
 
 		DoFrame();
-		Sleep(1000.0f/90.0f);
+		Sleep(1000.0f/120.0f);
 	}
 }
 
