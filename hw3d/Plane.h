@@ -48,7 +48,7 @@ public:
 		{
 			const auto vxy2i = [nVertices_x](size_t x, size_t y)
 			{
-				return(usigned short)(y * nVertices_x + x);
+				return(unsigned short)(y * nVertices_x + x);
 			};
 
 			for (size_t y = 0; y < divisions_y; y++)
@@ -56,7 +56,7 @@ public:
 				for (size_t x = 0; x < divisions_x; x++)
 				{
 					const std::array<unsigned short, 4> indexArray =
-					{ vx2i(x,y), vxy2i(x + 1,y),vx2i(x,y + 1),vx2i(x + 1,y + 1) };
+					{ vxy2i(x,y), vxy2i(x + 1,y),vxy2i(x,y + 1),vxy2i(x + 1,y + 1) };
 					indices.push_back(indexArray[0]);
 					indices.push_back(indexArray[2]);
 					indices.push_back(indexArray[1]);
@@ -66,12 +66,12 @@ public:
 				}
 			}
 		}
-		return{ std::move(vertices), std::moce(indices) };
+		return{ std::move(vertices), std::move(indices) };
 	}
 
 	template<class V>
 	static IndexedTriangleList<V> Make()
 	{
-		retirn MakeTesselated<V>(1, 1);
+		return MakeTesselated<V>(1, 1);
 	}
 };

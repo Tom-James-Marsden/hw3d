@@ -34,6 +34,9 @@
     <Filter Include="Header Files\Primitives">
       <UniqueIdentifier>{02c7358a-1380-4bc1-80b2-35b2c16109d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ImGUI">
+      <UniqueIdentifier>{a0277952-2c5f-4be9-a236-65907673d13e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -106,6 +109,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Surface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sampler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sheet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SkinnedBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imconfig.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -221,6 +239,21 @@
     <ClInclude Include="Prism.h">
       <Filter>Header Files\Primitives</Filter>
     </ClInclude>
+    <ClInclude Include="Sampler.h">
+      <Filter>Header Files\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="Sheet.h">
+      <Filter>Header Files\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="SkinnedBox.h">
+      <Filter>Header Files\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="imconfig.h">
+      <Filter>Header Files\ImGUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="hw3d.rc">
@@ -257,6 +290,12 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="ColourBlendVS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="TexturePS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="TextureVS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>
