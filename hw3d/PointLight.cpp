@@ -17,17 +17,16 @@ void PointLight::SpawnControlWindow() noexcept
 		ImGui::SliderFloat("X", &cbData.pos.x, -60.0f, 60.0f, "%.1f");
 		ImGui::SliderFloat("Y", &cbData.pos.y, -60.0f, 60.0f, "%.1f");
 		ImGui::SliderFloat("Z", &cbData.pos.z, -60.0f, 60.0f, "%.1f");
-
 		ImGui::Text("Intensity/Color");
-		ImGui::SliderFloat("Intensity", &cbData.diffuseIntensity,0.1f, 2.0f,"%0.2f",2);
-		ImGui::ColorEdit3("Diffuse Colour", &cbData.diffuseColour.x);
-		ImGui::ColorEdit3("Diffuse Colour", &cbData.ambient.x);
-		ImGui::ColorEdit3("Diffuse Colour", &cbData.materialColour.x);
+		ImGui::SliderFloat("Intensity", &cbData.diffuseIntensity, 0.01f, 2.0f, "%.2f", ImGuiSliderFlags_Logarithmic);
+		ImGui::ColorEdit3("Diffuse Color", &cbData.diffuseColour.x);
+		ImGui::ColorEdit3("Ambient", &cbData.ambient.x);
+		ImGui::ColorEdit3("Material", &cbData.materialColour.x);
 
 		ImGui::Text("Falloff");
-		ImGui::SliderFloat("Constant", &cbData.attConst, 0.05f, 10.0f, "%.2f", 4);
-		ImGui::SliderFloat("Linear", &cbData.attLin, 0.0001f, 4.0f, "%.4f", 8);
-		ImGui::SliderFloat("Quadratic", &cbData.attQuad, 0.0000001f, 10.0f, "%.7f", 10);
+		ImGui::SliderFloat("Constant", &cbData.attConst, 0.05f, 10.0f, "%.2f", ImGuiSliderFlags_Logarithmic);
+		ImGui::SliderFloat("Linear", &cbData.attLin, 0.0001f, 4.0f, "%.4f", ImGuiSliderFlags_Logarithmic);
+		ImGui::SliderFloat("Quadratic", &cbData.attQuad, 0.0000001f, 10.0f, "%.7f", ImGuiSliderFlags_Logarithmic);
 
 		if (ImGui::Button("Reset"))
 		{
