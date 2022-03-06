@@ -1,6 +1,8 @@
 #pragma once
 #include "Window.h"
 #include "BumTimer.h"
+#include "ImguiManager.h"
+
 class App
 {
 public:
@@ -11,6 +13,7 @@ public:
 private:
 	void DoFrame();
 private:
+	ImguiManager imgui;
 	Window wnd;
 	BumTimer timer;
 	std::vector<std::unique_ptr<class Drawable>> drawables;
