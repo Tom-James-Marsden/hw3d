@@ -112,13 +112,10 @@ void App::DoFrame()
 		d->Draw(wnd.Gfx());
 	}
 
-	static char buffer[1024];
-
 	if (ImGui::Begin("Simulation Speed"))
 	{
 		ImGui::SliderFloat("Speed Factor", &speed_factor, 0.0f, 4.0f);
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",1000.0f/ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-		ImGui::InputText("Butts", buffer, sizeof(buffer));
 	}
 	ImGui::End();
 
